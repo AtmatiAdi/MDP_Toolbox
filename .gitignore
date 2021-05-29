@@ -1,4 +1,6 @@
 reinforcement_learning_learning-master
 __pycache__
-AI4.py
+AI4*
 *.png
+build
+dist

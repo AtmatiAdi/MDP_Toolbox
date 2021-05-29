@@ -64,6 +64,8 @@ def LoadGridWord(fName, loud):
             state = (int(arg[1])-1) + (int(arg[2])-1) * width
             Forbidden.append(state)
             if loud: print("Forbidden state: {}".format(state))
+    if world.Size == 0 or sum(ActProb) != 1 or len(Terminal) == 0:
+        print("World file is not complete !!")
     # Building P matrix and R vector
     P = np.zeros(shape=(len(ActProb), world.Size, world.Size))
     for act in range(len(P)):
