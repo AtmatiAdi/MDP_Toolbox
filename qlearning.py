@@ -17,7 +17,7 @@ class Scene:
     def Reset(self):                return self.World.Start
     def GetReward(self, state):     return self.World.R[state]
     def IsTerminate(self, state):   return True if self.World.P[0,state,state] == 1 else False   
-    def GetCount(self, state):      return self.Counter[state]
+    def GetCount(self, state):      return self.Counter[state] if self.Counter[state] > 0 else 1
 
 class Agent:
     Scene = 0
