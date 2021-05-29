@@ -25,6 +25,7 @@ class Agent:
     State = 0
     Explor = 0
     Gamma = 0
+    AGRESSION = 0.001
     def __init__(self, scene, explor, gamma):
         self.Scene = scene
         # Initalize Q_Values array for every state and action
@@ -64,6 +65,7 @@ class Agent:
         tranQ = max(self.Q_Values[newState]) 
         reward = self.Scene.GetReward(self.State)
         learn = 1 / self.Scene.GetCount(self.State, action)
+        if learn < self.AGRESSION: learn = self.AGRESSION
         return oldQ + learn * (reward + self.Gamma * tranQ - oldQ)   
 
 
