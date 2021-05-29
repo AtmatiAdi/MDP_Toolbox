@@ -7,17 +7,17 @@ class Scene:
 
     def __init__(self, world):
         self.World = world
-        self.Counter = np.zeros(world.Size)
+        self.Counter = np.zeros(shape=(world.Size,len(world.Actions)))
     def Move(self, state, action):
         newState = np.random.choice(range(self.World.Size),p=self.World.P[action,state])
-        self.Counter[newState] += 1
+        self.Counter[newState,action] += 1
         return newState
     def GetSize(self):              return self.World.Size
     def GetActions(self):           return self.World.Actions
     def Reset(self):                return self.World.Start
     def GetReward(self, state):     return self.World.R[state]
     def IsTerminate(self, state):   return True if self.World.P[0,state,state] == 1 else False   
-    def GetCount(self, state):      return self.Counter[state] if self.Counter[state] > 0 else 1
+    def GetCount(self, state, act): return self.Counter[state, act] if self.Counter[state, act] > 0 else 1
 
 class Agent:
     Scene = 0
@@ -63,7 +63,7 @@ class Agent:
         oldQ = self.Q_Values[self.State, action]    
         tranQ = max(self.Q_Values[newState]) 
         reward = self.Scene.GetReward(self.State)
-        learn = 1 / self.Scene.GetCount(self.State)
+        learn = 1 / self.Scene.GetCount(self.State, action)
         return oldQ + learn * (reward + self.Gamma * tranQ - oldQ)   
 
 

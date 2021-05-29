@@ -23,14 +23,14 @@ mdp.PrintPolicyVal(world, V, A)
 
 world = mdp.LoadGridWord('MDPRL_world0.data', 0)
 
-iter = 100000
+iter = 10000000
 print(">>>Q-LEARNING runs for {} iterations... be patient :D <<<".format(iter))
 Q = mdp.ql.QLearning(world, iter)
 mdp.PrintQResults(world, Q)
 
 world = mdp.LoadGridWord('MDPRL_world1.data', 0)
 
-iter = 100000
+iter = 10000000
 print(">>>Q-LEARNING runs for {} iterations... be patient :D <<<".format(iter))
 Q = mdp.ql.QLearning(world, iter)
 mdp.PrintQResults(world, Q)
