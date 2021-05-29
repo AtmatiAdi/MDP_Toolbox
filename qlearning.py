@@ -48,17 +48,19 @@ class Agent:
         return bestAct
 
     def Learn(self, iter):
+        tail = []
         while iter > 0:
             if self.Scene.IsTerminate(self.State):                                 
                 self.Q_Values[self.State] = self.Scene.GetReward(self.State)   # Assign terminal value to Q value of terminal state
                 self.State = self.Scene.Reset()
                 iter -= 1
+                tail.append(self.BestQValues())
             else:                                                           # We are still playing
                 action = self.ChooseAction()                  # Choice best action asing on Q values
                 newState = self.Scene.Move(self.State, action)                        # Perform action on the scene     
                 self.Q_Values[self.State, action] = self.CalcQ(newState, action)                                          # Update Q walue of current state
                 self.State = newState                                                        # Realize where I am in my mind    
-        return self.Q_Values
+        return self.Q_Values, tail
 
     def CalcQ(self, newState, action):
         oldQ = self.Q_Values[self.State, action]    
@@ -67,6 +69,14 @@ class Agent:
         learn = 1 / self.Scene.GetCount(self.State, action)
         if learn < self.AGRESSION: learn = self.AGRESSION
         return oldQ + learn * (reward + self.Gamma * tranQ - oldQ)   
+
+    def BestQValues(self):
+        a = 0
+        bestQValues = np.zeros(len(self.Q_Values))
+        for state in self.Q_Values:
+            bestQValues[a] = max(state)
+            a += 1
+        return bestQValues
 
 
 def QLearning(world, iter):

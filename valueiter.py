@@ -16,6 +16,7 @@ def maxV_BestAct(world, state, V):
     return val, bestAct
 
 def ValueIteration(world, iter):
+    tail = []
     V = np.zeros(world.Size)                            # Initalize Values array
     A = np.zeros(world.Size)                            # Initalize Actions array
     for i in range(iter):                               # Iteration counting
@@ -29,5 +30,7 @@ def ValueIteration(world, iter):
                 isChanging = True                               
             V[state] = newV                                     # Updating value
         if isChanging == False:                                 # If nothing changes break the loop
+            tail.append(V.copy())
             break
-    return V, A
+        tail.append(V.copy())
+    return V, A, tail

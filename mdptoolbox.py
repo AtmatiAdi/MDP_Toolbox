@@ -2,9 +2,11 @@
 # Created by AtmatiAdi 29.05.2021
 
 import numpy as np
+import matplotlib.pyplot as plt
 import world as World
 import valueiter as vi
 import qlearning as ql
+
 
 def LoadGridWord(fName, loud):
     # Initalization
@@ -206,6 +208,18 @@ def PrintQResults(world, Q_Values):
         policy[p], Val[p] = BestActMaxQ(p, Q_Values)
     PrintPolicyVal(world, Val , policy)
 
+def ShowVal(world, tail, title):
+    plt.figure()
+    plt.plot(tail)
+    legend = []
+    for row in range(world.Height):
+        for col in range(world.Width):
+            legend.append("[{},{}]".format(col+1,row+1))
+    plt.legend(legend)
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig('{}.png'.format(title))
+    plt.show()
 
 def BestActMaxQ(state, Q_Values):
     bestAct = None
