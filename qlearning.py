@@ -25,7 +25,7 @@ class Agent:
     State = 0
     Explor = 0
     Gamma = 0
-    AGRESSION = 0.001
+    AGRESSION = 0.0001
     def __init__(self, scene, explor, gamma):
         self.Scene = scene
         # Initalize Q_Values array for every state and action

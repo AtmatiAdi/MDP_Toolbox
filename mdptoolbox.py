@@ -175,9 +175,19 @@ def PrintPolicyVal(world, Val, A):
         for col in range(world.Width):
             state = world.Width * row + col
             if Val[state] >= 0:
-                rowStr += ' {:1.3f} '.format(round(Val[state],3))
+                if Val[state] >= 100:
+                    rowStr += ' {:1.2f} '.format(round(Val[state],2))
+                elif Val[state] >= 10:
+                    rowStr += ' {:1.3f} '.format(round(Val[state],3))
+                else:
+                    rowStr += '  {:1.3f} '.format(round(Val[state],3))
             else:
-                rowStr += '{:1.3f} '.format(round(Val[state],3))
+                if Val[state] <= -100:
+                    rowStr += '{:1.2f} '.format(round(Val[state],2))
+                elif Val[state] <= -10:
+                    rowStr += '{:1.3f} '.format(round(Val[state],3))
+                else:
+                    rowStr += ' {:1.3f} '.format(round(Val[state],3))
         rowStr += '|'
         for col in range(world.Width):
             state = world.Width * row + col
@@ -199,7 +209,10 @@ def PrintValues(world, Val):
             if Val[state] >= 0:
                 rowStr += ' {:1.3f} '.format(round(Val[state],3))
             else:
-                rowStr += '{:1.3f} '.format(round(Val[state],3))
+                if Val[state] <= -100:
+                    rowStr += '{:1.2f} '.format(round(Val[state],3))
+                else:
+                    rowStr += '{:1.3f} '.format(round(Val[state],3))
         rowStr += '|'
         print(rowStr)
 

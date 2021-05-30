@@ -4,3 +4,4 @@ AI4*
 *.png
 build
 dist
+*.json
